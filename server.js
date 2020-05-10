@@ -36,7 +36,15 @@ app.get("/movie", function handleGetMovie(req, res) {
   // filter our movies by country if country query param is present
   if (req.query.country) {
     response = response.filter((movies) =>
+      //case insensitive searching
       movies.country.toLowerCase().includes(req.query.country.toLowerCase())
+    );
+  }
+
+  //filter our movies by average vote if avg_vote query param is present
+  if (req.query.avg_vote) {
+    response = response.filter(
+      (movies) => Number(movie.avg_vote) >= Number(req.query.avg_vote)
     );
   }
 
