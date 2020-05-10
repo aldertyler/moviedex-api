@@ -36,7 +36,7 @@ app.get("/movie", function handleGetMovie(req, res) {
   // filter our movies by country if country query param is present
   if (req.query.country) {
     response = response.filter((movies) =>
-      movies.country.includes(req.country.type)
+      movies.country.toLowerCase().includes(req.query.country.toLowerCase())
     );
   }
 
