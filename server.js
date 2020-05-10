@@ -21,3 +21,30 @@ app.use(function validateBearerToken(req, res, next) {
   // move to the next middleware
   next();
 });
+
+app.get("/movie", function handleGetMovie(req, res) {
+  let response = MOVIEDEX.movies;
+
+  // filter our movies by genre if genre query param is present
+  if (req.query.genre) {
+    response = response.filter((movies) =>
+      // case insensitive searching
+      movies.genre.toLowerCase().includes(req.query.genre.toLowerCase())
+    );
+  }
+
+  // filter our movies by country if country query param is present
+  if (req.query.country) {
+    response = response.filter((movies) =>
+      movies.country.includes(req.country.type)
+    );
+  }
+
+  res.json(response);
+});
+
+const PORT = 8000;
+
+app.listen(PORT, () => {
+  console.log(`Server listening at http://localhost:${PORT}`);
+});
